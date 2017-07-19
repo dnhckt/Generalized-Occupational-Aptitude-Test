@@ -1,19 +1,48 @@
 from appJar import gui
+import GOATquestions
 
-def press(btn):
-    print(btn)
+startWin = gui("Generalized Occupational Aptitude Test")
+question = gui("Generalized Occupational Aptitude Test")
 
-app = gui()
+qCount = 0
 
-app.setBg("green")
+def startPress(btn):
+    
+    if btn == "Begin":
+         
+        global qCount
+        qCount += 1
+    
+        question.setBg("green")
+     
+        question.addLabel("Tit", "Question " + str(qCount))
+        question.addLabel("Question", "")
+            
+        if qCount == 1:
+            question.setLabel("Question", GOATquestions.qOne)
+                
+            question.addRadioButton("ans", GOATquestions.qOneA)
+            question.addRadioButton("ans", GOATquestions.qOneB)
+            question.addRadioButton("ans", GOATquestions.qOneC)
+            question.addRadioButton("ans", GOATquestions.qOneD)
+ 
+        question.addButton("Continue", startPress)
+        
+        question.go()
+   
+    if btn == "Quit":
+        startWin.stop()
+        print("Quit")
+        
+    if btn == "Continue":
+        question.stop()    
+        
 
-app.addLabel("welcome", "Welcome to the G.O.A.T")
-app.setLabelBg("welcome", "green")
-
-app.addButton("Begin", press)
-app.setButtonBg("Begin", "black")
-
-app.go() 
+startWin.setBg("green")
+startWin.addLabel("welcome", "Welcome to the G.O.A.T")
+startWin.setLabelBg("welcome", "green")
+startWin.addButtons(["Begin", "Quit"], startPress)
+startWin.go() 
 
 """
     Generalized Occupational Aptitude Test (G.O.A.T)
